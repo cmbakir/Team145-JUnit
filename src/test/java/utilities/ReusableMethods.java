@@ -1,7 +1,10 @@
 package utilities;
 
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.*;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.io.File;
 import java.io.IOException;
@@ -95,6 +98,7 @@ public class ReusableMethods {
         }
     }
 
+
     public static void getScreenshotTumSayfa(WebDriver driver){
 
         // 240924202034
@@ -105,6 +109,41 @@ public class ReusableMethods {
 
         // 1.adim olusturacagimiz dosyayolunu hazirlayalim
         String dosyaYolu = "target/screenshots/TumSayfaSS"+tarihEtiketi+".png";
+
+        // 2. TakesScreenshot objesi olusturalim
+
+        // TakesScreenshot tss = new TakesScreenshot();
+        // 'TakesScreenshot' is abstract; cannot be instantiated
+
+        TakesScreenshot tss = (TakesScreenshot) driver;
+
+        // 3.adim screenshot'i kaydedecegimiz File'i olusturalim
+
+        File tumsayfaSS = new File(dosyaYolu);
+
+        // 4.adim screenshot'i alip gecici dosua olarak kaydedin
+
+        File geciciResim = tss.getScreenshotAs(OutputType.FILE);
+
+        // 5.adim gecici resmi asil dosyaya kopyalayalim
+
+        try {
+            FileUtils.copyFile(geciciResim,tumsayfaSS);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void getScreenshotTumSayfaTarihli(WebDriver driver,String ssIsmi){
+
+        // cem olusturdu 240924202034
+        LocalDateTime ldt = LocalDateTime.now(); // 2024-09-24T20-23-24-123432
+
+        DateTimeFormatter istenenFormat = DateTimeFormatter.ofPattern("yy_MM_dd_HHmmss");
+        String tarihEtiketi = ldt.format(istenenFormat);
+
+        // 1.adim olusturacagimiz dosyayolunu hazirlayalim
+        String dosyaYolu = "target/screenshots/TumSayfaSS_"+ssIsmi+tarihEtiketi+".png";
 
         // 2. TakesScreenshot objesi olusturalim
 
@@ -161,4 +200,6 @@ public class ReusableMethods {
 
 
     }
+
+
 }
