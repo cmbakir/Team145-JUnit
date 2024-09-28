@@ -24,41 +24,49 @@ public class P01_checkBox_Cem {
     public static void setUp2(){
         driver=new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @AfterAll
     public static void tearDown2() throws InterruptedException {
         Thread.sleep(1000);
-        //driver.quit();
+        driver.quit();
     }
 
     @BeforeEach
     public void before1(){
         driver.get("https://www.amazon.com/gp/goldbox?ref_=nav_cs_gb");
+
     }
 
     @AfterEach
     public void after1(){
         System.out.println("Test Tamamlandı. Kontrol ediniz");
-        Actions actions = new Actions(driver);
-        actions.sendKeys(Keys.PAGE_DOWN).perform();
+       // Actions actions = new Actions(driver);
+        //actions.sendKeys(Keys.PAGE_DOWN).perform();
     }
 
     @Test
     public void test() throws InterruptedException {
+       // JavascriptExecutor jse = (JavascriptExecutor) driver;
+
+      //  jse.executeScript("","");
+      //  ReusableMethods.bekle(1);
         WebElement checkBox1=driver.findElement(By.xpath("//*[@data-testid='filter-accessType-1']"));
+      //  jse.executeScript("arguments[0].scrollIntoView({block: 'center’}); ", checkBox1);
+        ReusableMethods.bekle(2);
+
       //  WebElement checkBox2=driver.findElement(By.xpath("//*[@data-testid='filter-accessType-2']"));
 
         if (!checkBox1.isSelected()){
             checkBox1.click();
         }
         ReusableMethods.bekle(2);
-        Actions actions = new Actions(driver);
-        actions.sendKeys(Keys.PAGE_DOWN).perform();
-        actions.sendKeys(Keys.PAGE_DOWN).perform();
-        actions.sendKeys(Keys.PAGE_DOWN).perform();
-        actions.sendKeys(Keys.PAGE_DOWN).perform();
+       // Actions actions = new Actions(driver);
+      //  actions.sendKeys(Keys.PAGE_DOWN).perform();
+      //  actions.sendKeys(Keys.PAGE_DOWN).perform();
+      //  actions.sendKeys(Keys.PAGE_DOWN).perform();
+      //  actions.sendKeys(Keys.PAGE_DOWN).perform();
 
         assertTrue(checkBox1.isSelected());
      //   if (!checkBox2.isSelected()){
